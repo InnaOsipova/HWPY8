@@ -11,7 +11,7 @@ def get_data():
         print(record)
     elif choise == '2':
         record = [input(f'{i} :') for i in table]
-    with open('data.csv', 'a') as f:
+    with open('data.csv', 'a', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(record)
 
