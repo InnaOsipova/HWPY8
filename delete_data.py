@@ -4,18 +4,18 @@ from csv import writer
 
 def delete():
     request = input("Введите данные для удаления: ")
-    
-    with open('data.csv', 'r') as inp:
-        newrows = []
-        data = csv.reader(inp)
+
+    with open('data.csv', 'r+') as in_f:
+        data = list(csv.reader(in_f))
+        in_f.truncate(0)
+
+    data = list(filter(None, data))
+    print(data)
+
+    with open('data.csv', 'w', newline='') as out_f:
         for row in data:
             if request not in row:
-                newrows.append(row)
-    with open('data.csv', 'w') as out:
-        csv_writer = writer(out)
-        for row in newrows:
-            csv_writer.writerow(row)
-        print(f' Строка с значением {request} удалена')
-
+                writer(out_f).writerow(row)
+                print(row)
 
     return request
